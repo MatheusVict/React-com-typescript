@@ -1,25 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Hello } from './components/Hello';
+import Rotas from './app/routes';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          vamos usar typescript
-        </p>
-        <Hello name='matheus' idade={18}/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Rotas/>
       </header>
     </div>
   );
