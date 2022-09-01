@@ -1,0 +1,29 @@
+.form {
+    background-color: rgb(187, 35, 218);
+    padding: 20px;
+    padding-top: 50px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input:hover {
+    background-color: red;
+    margin: 7px;
+}
+
+.btn {
+    width: 50px;
+    align-self: center;
+    margin-top: 15px;
+    animation: btn-girar infinite 20s linear;
+}
+
+@keyframes btn-girar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

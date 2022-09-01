@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import styles from './useState.module.css'
 
 export const UseState = () => {
 
@@ -11,15 +12,17 @@ export const UseState = () => {
     
     }, []);
 
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
     useEffect(() => {
         console.log(email)
-    }, [email]); // Dependencias dizem q ele vai ser re renderizado sempre q esses valores forem alterados
+    }, [email, senha]); // Dependencias dizem q ele vai ser re renderizado sempre q esses valores forem alterados
 
 
-    const Btn = () => {
+    const Btn = useCallback(() => {
         console.log(email)
-    }
+        console.log(senha)
+    }, [email, senha]);
 
     const tamanhoDoEmail = useMemo(() => {
         console.log('foi')
@@ -28,22 +31,23 @@ export const UseState = () => {
 
     return(
         <div>
-            <form>
+            <form className={styles.form}>
                 <p>Você digitou {tamanhoDoEmail} letras</p>
                 <label>
                     <span>
                         Email
                     </span>
-                    <input type="text" onChange={e => setEmail(e.target.value)}/>
+                    <input type="text" onChange={e => setEmail(e.target.value)} className={styles.input}/>
                     </label>
                     <label>
                     <span>
                         Senha
                     </span>
-                    <input type="text"/>
+                    <input type="password" onChange={e => setSenha(e.target.value)}/>
                 </label>
-                <button type="button" onClick={Btn}>Vai</button>
-                <p>{email}</p>
+                <button type="button" onClick={Btn} className={styles.btn}>Vai</button>
+                <p>Seu email é {email}</p>
+                <p>Sua senha é {senha}</p>
             </form>
         </div>
     )
