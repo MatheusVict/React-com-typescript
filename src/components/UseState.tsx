@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
-import styles from './useState.module.css'
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import styles from './useState.module.css';
 
 export const UseState = () => {
+    const refContainer = useRef<HTMLInputElement>(null); // Ele inicia como nulo, mas alguma coisa pode atribuir um valor de um input html pra ele
 
     useEffect(() => { //Carrega só quando o componente renderizar de primeira
         if (window.confirm('Homem ou mulher?')) { //useEffect é bom pra chamada de API pq só faz uma vez
-            console.log('interessante')
+            console.log('interessante');
         } else {
-            console.log('HMMMMMM')
+            console.log('HMMMMMM');
         }
     
     }, []);
@@ -20,14 +21,20 @@ export const UseState = () => {
 
 
     const Btn = useCallback(() => {
-        console.log(email)
-        console.log(senha)
+        console.log(email);
+        console.log(senha);
+        if (refContainer.current != null) {
+
+            refContainer.current.focus()
+        }
     }, [email, senha]);
 
     const tamanhoDoEmail = useMemo(() => {
-        console.log('foi')
+        console.log('foi');
         return email.length;
     }, [email.length]);
+
+
 
     return(
         <div>
@@ -37,13 +44,16 @@ export const UseState = () => {
                     <span>
                         Email
                     </span>
-                    <input type="text" onChange={e => setEmail(e.target.value)} className={styles.input}/>
+                    <input type="text" 
+                    onKeyDown={e => e.key === 'Enter' ? refContainer.current?.focus() : undefined} // se eu teclar enter o input de senha é focado(Com operador ternario)
+                    onChange={e => setEmail(e.target.value)} 
+                    className={styles.input}/>
                     </label>
                     <label>
                     <span>
                         Senha
                     </span>
-                    <input type="password" onChange={e => setSenha(e.target.value)}/>
+                    <input type="password" ref={refContainer} onChange={e => setSenha(e.target.value)}/>
                 </label>
                 <button type="button" onClick={Btn} className={styles.btn}>Vai</button>
                 <p>Seu email é {email}</p>
