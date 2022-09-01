@@ -1,14 +1,35 @@
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 export const UseState = () => {
-    const [email, setEmail] = useState('')
-    const Btn = () => {
 
+    useEffect(() => { //Carrega só quando o componente renderizar de primeira
+        if (window.confirm('Homem ou mulher?')) { //useEffect é bom pra chamada de API pq só faz uma vez
+            console.log('interessante')
+        } else {
+            console.log('HMMMMMM')
+        }
+    
+    }, []);
+
+    const [email, setEmail] = useState('')
+    useEffect(() => {
+        console.log(email)
+    }, [email]); // Dependencias dizem q ele vai ser re renderizado sempre q esses valores forem alterados
+
+
+    const Btn = () => {
+        console.log(email)
     }
+
+    const tamanhoDoEmail = useMemo(() => {
+        console.log('foi')
+        return email.length;
+    }, [email.length]);
 
     return(
         <div>
             <form>
+                <p>Você digitou {tamanhoDoEmail} letras</p>
                 <label>
                     <span>
                         Email
