@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import styles from './useState.module.css';
+import { InputLgin } from "./inputLogin";
+
 
 export const UseState = () => {
     const refContainer = useRef<HTMLInputElement>(null); // Ele inicia como nulo, mas alguma coisa pode atribuir um valor de um input html pra ele
@@ -38,24 +39,37 @@ export const UseState = () => {
 
     return(
         <div>
-            <form className={styles.form}>
+            <form >
                 <p>Você digitou {tamanhoDoEmail} letras</p>
-                <label>
+                <InputLgin 
+                label="Email" 
+                type="text" 
+                value={email} onChange={newvalue => setEmail(newvalue)}
+                onPressEnter={() => refContainer.current?.focus()}
+                />
+                <InputLgin
+                label="Senha"
+                type="password"
+                value={senha}
+                onChange={newvalue => setSenha(newvalue)}
+                />
+                
+                {/*<label>
                     <span>
                         Email
                     </span>
                     <input type="text" 
                     onKeyDown={e => e.key === 'Enter' ? refContainer.current?.focus() : undefined} // se eu teclar enter o input de senha é focado(Com operador ternario)
                     onChange={e => setEmail(e.target.value)} 
-                    className={styles.input}/>
-                    </label>
-                    <label>
+                    />
+                    </label>*/}
+                    {/*<label>
                     <span>
                         Senha
                     </span>
                     <input type="password" ref={refContainer} onChange={e => setSenha(e.target.value)}/>
-                </label>
-                <button type="button" onClick={Btn} className={styles.btn}>Vai</button>
+                </label>*/}
+                <button type="button" onClick={Btn}>Vai</button>
                 <p>Seu email é {email}</p>
                 <p>Sua senha é {senha}</p>
             </form>
