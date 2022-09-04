@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface IinputLginProps {
     type: string;
     value: string;
@@ -6,7 +8,7 @@ interface IinputLginProps {
     onChange: (newvalue: string) => void;
 }
 
-export const InputLgin: React.FC<IinputLginProps> = (props) => {
+export const InputLgin = React.forwardRef<HTMLInputElement, IinputLginProps>((props, ref) => {
     // se eu teclar enter o input de senha é focado(Com operador ternario)
     return(
         <label>
@@ -14,10 +16,11 @@ export const InputLgin: React.FC<IinputLginProps> = (props) => {
                 {props.label}
             </span>
             <input type={props.type} 
-            value={props.value}
+            value={props.value}  
+            ref={ref}
             onChange={e => props.onChange(e.target.value)}
             onKeyDown={e => e.key === 'Enter' ? props.onPressEnter && props.onPressEnter(): undefined}/>
             
         </label>
     )
-}
+});

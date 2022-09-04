@@ -50,6 +50,7 @@ export const UseState = () => {
                 <InputLgin
                 label="Senha"
                 type="password"
+                ref={refContainer}
                 value={senha}
                 onChange={newvalue => setSenha(newvalue)}
                 />
