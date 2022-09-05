@@ -8,22 +8,32 @@ export const Dashboard = () => {
     const LoginUserContext = useUserLog()
 
     // Jeito certo de usar uma lista
-    const [list, setList] = useState<string[]>(['Linda', 'Princesa', 'Fofa'])
+    interface IItensdaLista {
+        title: string;
+        select: boolean;
+    }
+
+
+    const [list, setList] = useState<IItensdaLista[]>([]);
     const handleIpuntKey: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === 'Enter') {
             if (e.currentTarget.value.trim().length === 0) return;
             
-            const valor = e.currentTarget.value
+            const value = e.currentTarget.value
             
             e.currentTarget.value = '';
             
             setList((oldList) => {
-                if (oldList.includes(valor)) return oldList // se o valor já existir ele śo retorna iclud() === incluso
-                return [...oldList, valor];
+                if (oldList.some((listItem) => listItem.title === value)) return oldList // se o valor já existir ele śo retorna iclud() === incluso
+                return [...oldList, {
+                    title: value,
+                    select: false,
+                }];
             }); // ... espred usar uma lista com elemtos da lista anteriro
         }
     }, []) // com algumas validações
 
+    
 
     return(
         <div>
@@ -34,17 +44,35 @@ export const Dashboard = () => {
            <button onClick={() => console.log(contaClick.current.counter)}>Mostrar</button>
 
             <div>
-            <h1>Tú é</h1>
-            <input
-                type="text"
-                onKeyDown={handleIpuntKey}
-            />
-
-            <ul>
-                {list.map((value, index) => {
-                    return <li key={index}>{value}</li>;
-                })}
-            </ul>
+                <h1>Tú é</h1>
+                <input
+                    type="text"
+                    onKeyDown={handleIpuntKey}
+                />
+                <p>{list.filter((listItem) => listItem.select).length}</p>
+                <ul>
+                    {list.map((itemLista, index) => {
+                        return <li key={itemLista.title}>
+                            <input 
+                                type="checkbox"
+                                checked={itemLista.select}
+                                onChange={() => {
+                                    setList(oldLista => {
+                                        return oldLista.map(oldlistItem => {
+                                            const newSelect = oldlistItem.title === itemLista.title
+                                            ? !oldlistItem.select : oldlistItem.select
+                                            return {
+                                                ...oldlistItem,
+                                                select: newSelect
+                                            };
+                                        })
+                                    });
+                                }}
+                            />
+                            {itemLista.title}
+                        </li>;
+                    })}
+                </ul>
             </div>
         </div>
     )
