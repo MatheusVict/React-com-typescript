@@ -8,7 +8,7 @@ interface IUserlogProviderProps {
     children: React.ReactNode;
 }
 
-const UserLogContext = createContext<IUserLogContextData>({} as IUserLogContextData); // Macete dizendo q o objeto vazio é a reprensentação da minha interface
+export const UserLogContext = createContext<IUserLogContextData>({} as IUserLogContextData); // Macete dizendo q o objeto vazio é a reprensentação da minha interface
 
 
 export const UserlogProvider: React.FC<IUserlogProviderProps> = ({ children }) => {

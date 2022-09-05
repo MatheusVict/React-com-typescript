@@ -4,7 +4,7 @@ import './App.css';
 import Rotas from './app/routes';
 import { UserlogProvider } from './app/context/Userlog';
 
-function App() {
+function App() { // UserlogProvider  Tá compartilhando com tudo o seu elemento filho, nesse caso as rotas, ent posso acessar de onde eu quiser
   return (
     <div className="App">
       <header className="App-header">

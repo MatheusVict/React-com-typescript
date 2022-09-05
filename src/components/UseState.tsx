@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { UserLogContext } from "../app/context/Userlog";
 import { ButtonLogin } from "./ButtonLogin";
 import { InputLgin } from "./inputLogin";
+
 
 
 export const UseState = () => {
@@ -36,7 +38,7 @@ export const UseState = () => {
         return email.length;
     }, [email.length]);
 
-
+    const {NomeUser} = useContext(UserLogContext); // Pode desestruturar igual o props
 
     return(
         <div>
@@ -78,6 +80,7 @@ export const UseState = () => {
                 <ButtonLogin type="button" onClick={Btn}>
                     Entrar
                 </ButtonLogin>
+                <p>{NomeUser}</p>
                 <p>Seu email é {email}</p>
                 <p>Sua senha é {senha}</p>
             </form>
