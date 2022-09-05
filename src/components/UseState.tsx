@@ -18,7 +18,7 @@ export const UseState = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     useEffect(() => {
-        console.log(email)
+        console.log(email);
     }, [email, senha]); // Dependencias dizem q ele vai ser re renderizado sempre q esses valores forem alterados
 
 
@@ -47,14 +47,14 @@ export const UseState = () => {
                 type="text" 
                 value={email} onChange={newvalue => setEmail(newvalue)}
                 onPressEnter={() => refContainer.current?.focus()}
-                />
+                /><br/>
                 <InputLgin
                 label="Senha"
                 type="password"
                 ref={refContainer}
                 value={senha}
                 onChange={newvalue => setSenha(newvalue)}
-                />
+                /><br/>
                 
                 {/*<label>
                     <span>
