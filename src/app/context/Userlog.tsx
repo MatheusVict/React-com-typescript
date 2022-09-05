@@ -1,4 +1,4 @@
-import { createContext, useCallback } from "react"
+import { createContext, useCallback, useEffect, useState } from "react"
 
 interface IUserLogContextData {
     NomeUser: string;
@@ -16,9 +16,20 @@ export const UserlogProvider: React.FC<IUserlogProviderProps> = ({ children }) =
     const ExeLogout = useCallback(() => {
         console.log('Lougt')
     }, []);
+
+    const [nome , setNome] = useState('');
+
+    useEffect(() => {
+        setTimeout(() => {
+           setNome('Tú')
+           console.log(nome)
+        }, 200);
+    });
+
     return(
         <UserLogContext.Provider value={{ NomeUser: 'Matheus', Logout: ExeLogout }}>
-            {children}
+            {children} 
         </UserLogContext.Provider>
+
     );
 }
