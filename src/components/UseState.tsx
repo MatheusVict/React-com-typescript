@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ButtonLogin } from "./ButtonLogin";
 import { InputLgin } from "./inputLogin";
 
 
@@ -70,7 +71,13 @@ export const UseState = () => {
                     </span>
                     <input type="password" ref={refContainer} onChange={e => setSenha(e.target.value)}/>
                 </label>*/}
-                <button type="button" onClick={Btn}>Vai</button>
+                {/*<button type="button" onClick={Btn}>Vai</button>*/}
+                <ButtonLogin type="button" onClick={Btn}>
+                    children
+                </ButtonLogin>
+                <ButtonLogin type="button" onClick={Btn}>
+                    Entrar
+                </ButtonLogin>
                 <p>Seu email é {email}</p>
                 <p>Sua senha é {senha}</p>
             </form>
