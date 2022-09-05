@@ -38,7 +38,7 @@ export const UseState = () => {
         return email.length;
     }, [email.length]);
 
-    const {NomeUser} = useContext(UserLogContext); // Pode desestruturar igual o props
+    const {NomeUser, Logout} = useContext(UserLogContext); // Pode desestruturar igual o props
 
     return(
         <div>
@@ -80,6 +80,7 @@ export const UseState = () => {
                 <ButtonLogin type="button" onClick={Btn}>
                     Entrar
                 </ButtonLogin>
+                <button onClick={Logout}>Logout</button>
                 <p>{NomeUser}</p>
                 <p>Seu email é {email}</p>
                 <p>Sua senha é {senha}</p>

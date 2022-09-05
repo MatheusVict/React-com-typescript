@@ -1,7 +1,8 @@
-import { createContext } from "react"
+import { createContext, useCallback } from "react"
 
 interface IUserLogContextData {
     NomeUser: string;
+    Logout: () => void;
 }
 
 interface IUserlogProviderProps {
@@ -12,8 +13,11 @@ export const UserLogContext = createContext<IUserLogContextData>({} as IUserLogC
 
 
 export const UserlogProvider: React.FC<IUserlogProviderProps> = ({ children }) => {
+    const ExeLogout = useCallback(() => {
+        console.log('Lougt')
+    }, []);
     return(
-        <UserLogContext.Provider value={{ NomeUser: 'Matheus' }}>
+        <UserLogContext.Provider value={{ NomeUser: 'Matheus', Logout: ExeLogout }}>
             {children}
         </UserLogContext.Provider>
     );
