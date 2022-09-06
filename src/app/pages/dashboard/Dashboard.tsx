@@ -9,8 +9,9 @@ export const Dashboard = () => {
 
     // Jeito certo de usar uma lista
     interface IItensdaLista {
+        id: number;
         title: string;
-        select: boolean;
+        isComplete: boolean;
     }
 
 
@@ -26,8 +27,9 @@ export const Dashboard = () => {
             setList((oldList) => {
                 if (oldList.some((listItem) => listItem.title === value)) return oldList // se o valor já existir ele śo retorna iclud() === incluso
                 return [...oldList, {
+                    id: oldList.length,
                     title: value,
-                    select: false,
+                    isComplete: false,
                 }];
             }); // ... espred usar uma lista com elemtos da lista anteriro
         }
@@ -49,21 +51,21 @@ export const Dashboard = () => {
                     type="text"
                     onKeyDown={handleIpuntKey}
                 />
-                <p>{list.filter((listItem) => listItem.select).length}</p>
+                <p>{list.filter((listItem) => listItem.isComplete).length}</p>
                 <ul>
                     {list.map((itemLista, index) => {
-                        return <li key={itemLista.title}>
+                        return <li key={itemLista.id}>
                             <input 
                                 type="checkbox"
-                                checked={itemLista.select}
+                                checked={itemLista.isComplete}
                                 onChange={() => {
                                     setList(oldLista => {
                                         return oldLista.map(oldlistItem => {
-                                            const newSelect = oldlistItem.title === itemLista.title
-                                            ? !oldlistItem.select : oldlistItem.select
+                                            const newIsComplete = oldlistItem.title === itemLista.title
+                                            ? !oldlistItem.isComplete : oldlistItem.isComplete
                                             return {
                                                 ...oldlistItem,
-                                                select: newSelect
+                                                isComplete: newIsComplete
                                             };
                                         })
                                     });

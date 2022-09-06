@@ -1,24 +1,9 @@
 {
-  "posts": [
+  "todo": [
     {
-      "id": 1,
-      "title": "Tú é linda",
-      "author": "Matheus"
-    },
-    {
-      "title": "A gata mais linda do mundo",
-      "author": "Tú",
-      "id": 2
+      "id":1,
+      "title": "assignment",
+      "isComplete": false
     }
-  ],
-  "coments": [
-    {
-      "id": 1,
-      "body": "Algum comentario",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "Victor"
-  }
+  ]
 }
