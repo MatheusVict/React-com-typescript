@@ -7,12 +7,12 @@ const Button = () => {
 }
 
 
-interface Login {
+interface ILogin {
     tipo: string;
     place: string;
 }
 
-export const Login = ({ tipo, place }: Login) => {
+export const Login = ({ tipo, place }: ILogin) => {
     function Enviar(e: any) {
         e.preventDefault()
     }
