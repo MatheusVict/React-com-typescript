@@ -13,7 +13,7 @@ try {
     return data;
 
 }catch(error: any) {
-    return new ErrorExeption(error.msg || 'ERRO pai');
+    return new ErrorExeption(error.msg || 'ERRO ao buscar todos');
 }
 
 
@@ -24,7 +24,7 @@ try {
     const { data } = await api().get(`/tarefas/${id}`)
     return data;
 } catch(error: any) {
-    return new ErrorExeption(error.msg || 'Erro')
+    return new ErrorExeption(error.msg || 'Erro ao buscar por id')
 }
 };
 
@@ -33,16 +33,26 @@ try {
     const { data } = await api().post('/tarefas', dataCreate)
     return data;
 } catch(error: any) {
-    return new ErrorExeption(error.msg || 'ERRO')
+    return new ErrorExeption(error.msg || 'ERRO ao criar')
 }
 };
 
-const deleteById = () => {
-
+const deleteById = async (id: number): Promise<undefined | ErrorExeption> => {
+try {
+    await api().delete(`/tarefas/${id}`)
+    return undefined;
+} catch(error: any) {
+    return new ErrorExeption(error.msg || 'ERROR ao deletar') 
+}
 };
 
-const updateById = () => {
-
+const updateById = async (id: number, dataCreate: IItensdaLista): Promise<IItensdaLista | ErrorExeption> => {
+try {
+    const { data } = await api().put(`/tarefas/${id}`, dataCreate)
+    return data;
+} catch (error:any) {
+    return new ErrorExeption(error.msg || 'ERRO ao atualizar')
+}
 };
 
 export const TarefasService = {
