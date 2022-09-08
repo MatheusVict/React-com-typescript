@@ -34,17 +34,22 @@ export const Dashboard = () => {
             const value = e.currentTarget.value
             
             e.currentTarget.value = '';
+
+            if (list.some((listItem) => listItem.title === value)) return;
+
+            TarefasService.create({title: value, isComplete: false}).then((result) => {
+                if (result instanceof ErrorExeption) {
+                    alert(result.message);
+                } else {  
+                    setList((oldList) => {
+                        return [...oldList, result];
+                    }); 
+                }
+            });
             
-            setList((oldList) => {
-                if (oldList.some((listItem) => listItem.title === value)) return oldList // se o valor já existir ele śo retorna iclud() === incluso
-                return [...oldList, {
-                    id: oldList.length,
-                    title: value,
-                    isComplete: false,
-                }];
-            }); // ... espred usar uma lista com elemtos da lista anteriro
-        }
-    }, []) // com algumas validações
+            
+            }
+    }, [list]) // com algumas validações // ... espred usar uma lista com elemtos da lista anteriro
 
     
 
@@ -64,7 +69,7 @@ export const Dashboard = () => {
                 />
                 <p>{list.filter((listItem) => listItem.isComplete).length}</p>
                 <ul>
-                    {list.map((itemLista, index) => {
+                    {list.map((itemLista) => {
                         return <li key={itemLista.id}>
                             <input 
                                 type="checkbox"
