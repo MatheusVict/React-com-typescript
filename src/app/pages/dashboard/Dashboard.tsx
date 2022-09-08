@@ -1,6 +1,8 @@
-import { useCallback, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useUserLog } from "../../hooks/UserLog";
 import { useState } from "react";
+import { IItensdaLista, TarefasService } from "../../services/API/tarefas/TarefasService";
+import { ErrorExeption } from "../../services/API/ErrorException";
 
 export const Dashboard = () => {
     const contaClick = useRef({ counter: 0 }); // não precisa passar um parametro de tipagem pq ta iniciando co o valor padrão o objeto
@@ -8,14 +10,23 @@ export const Dashboard = () => {
     const LoginUserContext = useUserLog()
 
     // Jeito certo de usar uma lista
-    interface IItensdaLista {
-        id: number;
-        title: string;
-        isComplete: boolean;
-    }
+    
 
 
     const [list, setList] = useState<IItensdaLista[]>([]);
+
+    useEffect(() => {
+        TarefasService.getAll()
+            .then((result) => {
+                if (result instanceof ErrorExeption) {
+                    alert(result.message);
+                } else {  
+                    setList(result);
+                }
+            });
+    }, []);
+
+
     const handleIpuntKey: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) => {
         if (e.key === 'Enter') {
             if (e.currentTarget.value.trim().length === 0) return;
