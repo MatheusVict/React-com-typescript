@@ -53,6 +53,28 @@ export const Dashboard = () => {
 
     
 
+    const atualizarInput = useCallback((id:number) => {
+        const updateTarefa = list.find((tarefa) => tarefa.id === id);
+        if(!updateTarefa) return;
+
+        TarefasService.updateById(id, {
+            ...updateTarefa,
+            isComplete: !updateTarefa.isComplete
+        }).then((result) => {
+            if(result instanceof ErrorExeption){
+                alert(result.message)
+            } else {
+                setList(oldlista => {
+                    return oldlista.map(oldlistItem => {
+                        if(oldlistItem.id === id) return result;
+                        return oldlistItem;
+                    })
+                })
+            }
+        });
+    }, [list])
+
+
     return(
         <div>
            <h1>Dashboard</h1>
@@ -74,18 +96,7 @@ export const Dashboard = () => {
                             <input 
                                 type="checkbox"
                                 checked={itemLista.isComplete}
-                                onChange={() => {
-                                    setList(oldLista => {
-                                        return oldLista.map(oldlistItem => {
-                                            const newIsComplete = oldlistItem.title === itemLista.title
-                                            ? !oldlistItem.isComplete : oldlistItem.isComplete
-                                            return {
-                                                ...oldlistItem,
-                                                isComplete: newIsComplete
-                                            };
-                                        })
-                                    });
-                                }}
+                                onChange={() => atualizarInput(itemLista.id)/*Usa com função pq é e passa o id de parametro para apagalo */}
                             />
                             {itemLista.title}
                         </li>;
