@@ -74,6 +74,28 @@ export const Dashboard = () => {
         });
     }, [list])
 
+    const deletarTarefa = useCallback((id:number) => {
+        
+        TarefasService.deleteById(id).then((result) => {
+            if(result instanceof ErrorExeption){
+                alert(result.message)
+            } else {
+                setList(oldlista => {
+                    return oldlista.filter(oldlistItem => oldlistItem.id !== id)
+                })
+            }
+        });
+    }, [])
+
+    const mostrarId = useCallback((id:number) => {
+        const achar = list.find((tarefa) => tarefa.id === id)
+        if(!achar) return;
+        if(achar) {
+            alert(achar.title)
+        }
+    }, [list])
+
+
 
     return(
         <div>
@@ -99,6 +121,8 @@ export const Dashboard = () => {
                                 onChange={() => atualizarInput(itemLista.id)/*Usa com função pq é e passa o id de parametro para apagalo */}
                             />
                             {itemLista.title}
+                            <button onClick={() => deletarTarefa(itemLista.id)}>Deletar</button>
+                            <button onClick={() => mostrarId(itemLista.id)}>Mostrar</button>
                         </li>;
                     })}
                 </ul>
